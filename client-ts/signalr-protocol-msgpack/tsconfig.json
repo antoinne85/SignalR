@@ -1,0 +1,20 @@
+{
+    "extends": "../tsconfig-base.json",
+    "compilerOptions": {
+        "outDir": "./obj/js",
+        "declarationDir": "./obj/typings",
+        "baseUrl": ".",
+        "paths": {
+            "@aspnet/signalr-client": [
+                "../signalr-client/src/index"
+            ]
+        }
+    },
+    "include": [
+        "./src/**/*",
+        "../typings/**/*"
+    ],
+    "exclude": [
+        "../signalr-client/**/*"
+    ]
+}

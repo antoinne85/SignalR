@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "noEmitOnError": true,
+    "removeComments": false,
+    "sourceMap": true,
+    "target": "es2015",
+    "outFile": "./wwwroot/js/signalr-functional-tests.js"
+  },
+  "include": [
+    "./**/*",
+    "../typings/**/*",
+    "../signalr-client/dist/types/**/*.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "wwwroot",
+    "js"
+  ]
+}

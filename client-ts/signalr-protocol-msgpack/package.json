@@ -1,0 +1,45 @@
+{
+  "name": "signalr-protocol-msgpack",
+  "version": "1.0.0-preview1-t000",
+  "description": "MsgPack Protocol support for ASP.NET Core SignalR",
+  "main": "./dist/signalr-protocol-msgpack.cjs.js",
+  "browser": "./dist/signalr-protocol-msgpack.umd.js",
+  "module": "./dist/signalr-protocol-msgpack.es.js",
+  "typings": "./dist/types/signalr-protocol-msgpack.d.ts",
+  "umd_name": "signalR.protocols.msgpack",
+  "scripts": {
+    "clean": "node ../node_modules/rimraf/rimraf.js ./obj ./dist ./.rpt2_cache ./spec/obj",
+    "build": "npm run clean && npm run build:rollup && npm run build:dts && npm run build:uglify",
+    "build:rollup": "node ../node_modules/rollup/bin/rollup -c",
+    "build:dts": "node ./build/process-dts.js",
+    "build:uglify": "node ../node_modules/uglify-js/bin/uglifyjs ./dist/signalr-protocol-msgpack.umd.js -o ./dist/signalr-protocol-msgpack.umd.min.js --source-map \"content='./dist/signalr-protocol-msgpack.umd.js.map'\"",
+    "pretest": "node ../node_modules/rimraf/rimraf.js ./spec/obj && node ../node_modules/typescript/bin/tsc --project ./spec/tsconfig.json",
+    "test": "node ../node_modules/jasmine/bin/jasmine.js ./spec/obj/spec/**/*.spec.js"
+  },
+  "keywords": [
+    "signalr",
+    "aspnetcore"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aspnet/SignalR.git"
+  },
+  "author": "Microsoft",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/aspnet/SignalR/issues"
+  },
+  "homepage": "https://github.com/aspnet/SignalR#readme",
+  "files": [
+    "dist/**/*"
+  ],
+  "peerDependencies": {
+    "@aspnet/signalr": "^1.0.0-preview1"
+  },
+  "dependencies": {
+    "msgpack5": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/msgpack5": "^3.4.1"
+  }
+}

@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <title>Test Page</title>
+        <style>
+            .test-success {
+                color: green;
+            }
+            .test-failed {
+                color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Test Page</h1>
+        <p>This page validates that the UMD builds of the signalr-client and signalr-protocol-msgpack modules are available in the global scope when in a browser.</p>
+        <h2>Test Results</h2>
+        <ul id="results-list">
+        </ul>
+        <script src="signalr-client/dist/signalr-client.umd.min.js"></script>
+        <script src="signalr-protocol-msgpack/node_modules/msgpack5/dist/msgpack5.js"></script>
+        <script src="signalr-protocol-msgpack/dist/signalr-protocol-msgpack.umd.min.js"></script>
+        <script>
+            var resultsList = document.getElementById("results-list");
+            // Run tests
+            function test(name, impl) {
+                var result = ""
+                var success = false;
+                try {
+                    impl();
+                    result = "success";
+                    success = true;
+                } catch(e) {
+                    console.error(e);
+                    result = "error: " + e;
+                    success = false;
+                }
+
+                var cssClass = success ? "test-success": "test-failed";
+                resultsList.innerHTML += "<li class=\"" + cssClass + "\">" + name + ": " + result + "</li>";
+            }
+
+            test("signalR is available", function() {
+                if(!window.signalR){
+                    throw "window.signalR is falsey: " + window.signalR;
+                }
+            });
+            test("msgpack5 is available", function() {
+                if(!window.msgpack5){
+                    throw "window.msgpack5 is falsey: " + window.msgpack5;
+                }
+            });
+            test("signalR.protocols.msgpack is available", function() {
+                if(!window.signalR.protocols.msgpack){
+                    throw "signalR.protocols.msgpack is falsey: " + signalR.protocols.msgpack;
+                }
+            });
+        </script>
+    </body>
+</html>

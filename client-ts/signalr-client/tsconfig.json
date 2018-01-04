@@ -1,0 +1,11 @@
+{
+    "extends": "../tsconfig-base.json",
+    "compilerOptions": {
+        "outDir": "./obj/js",
+        "declarationDir": "./obj/typings"
+    },
+    "include": [
+        "./src/**/*",
+        "../typings/**/*"
+    ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "functionaltests",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "build": "node ../node_modules/typescript/bin/tsc"
+  },
+  "author": "",
+  "license": "Apache-2.0"
+}

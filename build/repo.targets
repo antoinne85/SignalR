@@ -2,6 +2,9 @@
   <Target Name="RestoreNpm" AfterTargets="Restore" Condition="'$(PreflightRestore)' != 'True'">
     <Message Text="Restoring NPM modules" Importance="high" />
     <Exec Command="npm install --no-optional" WorkingDirectory="$(RepositoryRoot)client-ts" />
+    <Exec Command="npm install --no-optional" WorkingDirectory="$(RepositoryRoot)client-ts/FunctionalTests" />
+    <Exec Command="npm install --no-optional" WorkingDirectory="$(RepositoryRoot)client-ts/signalr-client" />
+    <Exec Command="npm install --no-optional" WorkingDirectory="$(RepositoryRoot)client-ts/signalr-protocol-msgpack" />
   </Target>
 
   <Target Name="RunTSClientNodeTests" AfterTargets="Test">
