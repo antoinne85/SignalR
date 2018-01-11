@@ -3,7 +3,7 @@
 
 import { ConnectionClosed } from "./Common"
 import { IConnection } from "./IConnection"
-import { HttpConnection } from "./HttpConnection"
+import { HttpConnection, IHttpConnectionOptions } from "./HttpConnection"
 import { TransportType, TransferMode } from "./Transports"
 import { Subject, Observable } from "./Observable"
 import { IHubProtocol, ProtocolType, MessageType, HubMessage, CompletionMessage, ResultMessage, InvocationMessage, StreamInvocationMessage, NegotiationMessage } from "./IHubProtocol";
@@ -12,9 +12,13 @@ import { TextMessageFormat } from "./Formatters"
 import { Base64EncodedHubProtocol } from "./Base64EncodedHubProtocol"
 import { ILogger, LogLevel } from "./ILogger"
 import { ConsoleLogger, NullLogger, LoggerFactory } from "./Loggers"
-import { IHubConnectionOptions } from "./IHubConnectionOptions"
 
 export { JsonHubProtocol }
+
+export interface IHubConnectionOptions extends IHttpConnectionOptions {
+    protocol?: IHubProtocol;
+    timeoutInMilliseconds?: number;
+}
 
 const DEFAULT_TIMEOUT_IN_MS: number = 30 * 1000;
 
@@ -22,59 +26,6 @@ const browserWindow: any = <any>window;
 
 interface HubProtocolConstructor {
     new (): IHubProtocol;
-}
-
-function resolveProtocol(requestedProtocol: string | IHubProtocol, logger: ILogger): IHubProtocol {
-    if(!requestedProtocol) {
-        logger.log(LogLevel.Trace, "No protocol requested, using default JsonHubProtocol.");
-        return new JsonHubProtocol();
-    }
-    else if(typeof requestedProtocol === "string") {
-        logger.log(LogLevel.Trace, "Protocol name requested, looking for implementation");
-
-        // Special-case the built-in JSON protocol
-        if(requestedProtocol === JSON_HUB_PROTOCOL_NAME) {
-            logger.log(LogLevel.Trace, "Built-in JSON protocol requested by name.");
-            return new JsonHubProtocol();
-        }
-
-        // If we're in the browser, resolve off of window.signalR.protocols;
-        let constructor: HubProtocolConstructor = null;
-        if(browserWindow) {
-            if(browserWindow.signalR && browserWindow.signalR.protocols) {
-                let candidate = browserWindow.signalR.protocols[requestedProtocol];
-                if(typeof candidate !== "function") {
-                    throw new Error(`Value 'signalR.protocols.${requestedProtocol}' is not a Function`);
-                }
-                constructor = candidate;
-            }
-            if(constructor) {
-                logger.log(LogLevel.Trace, `Located protocol constructor: signalR.protocols.${requestedProtocol}`);
-            }
-        }
-        else if(require) {
-            // We're in NodeJS, we have require
-            let moduleName = `signalr-protocol-${requestedProtocol}`;
-            let candidate = require(moduleName);
-            if(typeof candidate !== "function") {
-                throw new Error(`Module '${moduleName}' does not export a Function`);
-            }
-            constructor = candidate;
-        }
-        else {
-            throw new Error(`Unknown environment. Cannot resolve protocol: '${requestedProtocol}'`)
-        }
-
-        if(!constructor) {
-            throw new Error(`Unable to locate requested protocol: '${requestedProtocol}'`);
-        } else {
-            return new constructor();
-        }
-    }
-    else {
-        logger.log(LogLevel.Trace, "IHubProtocol instance provided, using it");
-        return requestedProtocol;
-    }
 }
 
 export class HubConnection {
@@ -104,7 +55,7 @@ export class HubConnection {
 
         this.logger = LoggerFactory.createLogger(options.logger);
 
-        this.protocol = resolveProtocol(options.protocol, this.logger);
+        this.protocol = options.protocol || new JsonHubProtocol();
         this.connection.onreceive = (data: any) => this.processIncomingData(data);
         this.connection.onclose = (error?: Error) => this.connectionClosed(error);
 

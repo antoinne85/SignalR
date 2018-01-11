@@ -5,9 +5,15 @@ import { DataReceived, ConnectionClosed } from "./Common"
 import { IConnection } from "./IConnection"
 import { ITransport, TransferMode, TransportType, WebSocketTransport, ServerSentEventsTransport, LongPollingTransport } from "./Transports"
 import { HttpClient, DefaultHttpClient } from "./HttpClient"
-import { IHttpConnectionOptions } from "./IHttpConnectionOptions"
 import { ILogger, LogLevel } from "./ILogger"
 import { LoggerFactory } from "./Loggers"
+
+export interface IHttpConnectionOptions {
+    httpClient?: HttpClient;
+    transport?: TransportType | ITransport;
+    logger?: ILogger | LogLevel;
+    accessToken?: () => string;
+}
 
 const enum ConnectionState {
     Connecting,
