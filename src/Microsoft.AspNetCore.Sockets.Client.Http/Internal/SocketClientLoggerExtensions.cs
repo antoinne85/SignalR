@@ -99,77 +99,77 @@ namespace Microsoft.AspNetCore.Sockets.Client.Internal
         private static readonly Action<ILogger, Exception> _httpConnectionClosed =
             LoggerMessage.Define(LogLevel.Debug, new EventId(1, nameof(HttpConnectionClosed)), "Connection was closed from a different thread.");
 
-        private static readonly Action<ILogger, DateTime, string, string, Uri, Exception> _startingTransport =
-            LoggerMessage.Define<DateTime, string, string, Uri>(LogLevel.Debug, new EventId(2, nameof(StartingTransport)), "{time}: Connection Id {connectionId}: Starting transport '{transport}' with Url: {url}.");
+        private static readonly Action<ILogger, string, Uri, Exception> _startingTransport =
+            LoggerMessage.Define<string, Uri>(LogLevel.Debug, new EventId(2, nameof(StartingTransport)), "Starting transport '{transport}' with Url: {url}.");
 
-        private static readonly Action<ILogger, DateTime, string, Exception> _raiseConnected =
-            LoggerMessage.Define<DateTime, string>(LogLevel.Debug, new EventId(3, nameof(RaiseConnected)), "{time}: Connection Id {connectionId}: Raising Connected event.");
+        private static readonly Action<ILogger, Exception> _raiseConnected =
+            LoggerMessage.Define(LogLevel.Debug, new EventId(3, nameof(RaiseConnected)), "Raising Connected event.");
 
-        private static readonly Action<ILogger, DateTime, string, Exception> _processRemainingMessages =
-            LoggerMessage.Define<DateTime, string>(LogLevel.Debug, new EventId(4, nameof(ProcessRemainingMessages)), "{time}: Connection Id {connectionId}: Ensuring all outstanding messages are processed.");
+        private static readonly Action<ILogger, Exception> _processRemainingMessages =
+            LoggerMessage.Define(LogLevel.Debug, new EventId(4, nameof(ProcessRemainingMessages)), "Ensuring all outstanding messages are processed.");
 
-        private static readonly Action<ILogger, DateTime, string, Exception> _drainEvents =
-            LoggerMessage.Define<DateTime, string>(LogLevel.Debug, new EventId(5, nameof(DrainEvents)), "{time}: Connection Id {connectionId}: Draining event queue.");
+        private static readonly Action<ILogger, Exception> _drainEvents =
+            LoggerMessage.Define(LogLevel.Debug, new EventId(5, nameof(DrainEvents)), "Draining event queue.");
 
-        private static readonly Action<ILogger, DateTime, string, Exception> _completeClosed =
-            LoggerMessage.Define<DateTime, string>(LogLevel.Debug, new EventId(6, nameof(CompleteClosed)), "{time}: Connection Id {connectionId}: Completing Closed task.");
+        private static readonly Action<ILogger, Exception> _completeClosed =
+            LoggerMessage.Define(LogLevel.Debug, new EventId(6, nameof(CompleteClosed)), "Completing Closed task.");
 
-        private static readonly Action<ILogger, DateTime, Uri, Exception> _establishingConnection =
-            LoggerMessage.Define<DateTime, Uri>(LogLevel.Debug, new EventId(7, nameof(EstablishingConnection)), "{time}: Establishing Connection at: {url}.");
+        private static readonly Action<ILogger, Uri, Exception> _establishingConnection =
+            LoggerMessage.Define<Uri>(LogLevel.Debug, new EventId(7, nameof(EstablishingConnection)), "Establishing Connection at: {url}.");
 
-        private static readonly Action<ILogger, DateTime, Uri, Exception> _errorWithNegotiation =
-            LoggerMessage.Define<DateTime, Uri>(LogLevel.Error, new EventId(8, nameof(ErrorWithNegotiation)), "{time}: Failed to start connection. Error getting negotiation response from '{url}'.");
+        private static readonly Action<ILogger, Uri, Exception> _errorWithNegotiation =
+            LoggerMessage.Define<Uri>(LogLevel.Error, new EventId(8, nameof(ErrorWithNegotiation)), "Failed to start connection. Error getting negotiation response from '{url}'.");
 
-        private static readonly Action<ILogger, DateTime, string, string, Exception> _errorStartingTransport =
-            LoggerMessage.Define<DateTime, string, string>(LogLevel.Error, new EventId(9, nameof(ErrorStartingTransport)), "{time}: Connection Id {connectionId}: Failed to start connection. Error starting transport '{transport}'.");
+        private static readonly Action<ILogger, string, Exception> _errorStartingTransport =
+            LoggerMessage.Define<string>(LogLevel.Error, new EventId(9, nameof(ErrorStartingTransport)), "Failed to start connection. Error starting transport '{transport}'.");
 
-        private static readonly Action<ILogger, DateTime, string, Exception> _httpReceiveStarted =
-            LoggerMessage.Define<DateTime, string>(LogLevel.Trace, new EventId(10, nameof(HttpReceiveStarted)), "{time}: Connection Id {connectionId}: Beginning receive loop.");
+        private static readonly Action<ILogger, Exception> _httpReceiveStarted =
+            LoggerMessage.Define(LogLevel.Trace, new EventId(10, nameof(HttpReceiveStarted)), "Beginning receive loop.");
 
-        private static readonly Action<ILogger, DateTime, string, Exception> _skipRaisingReceiveEvent =
-            LoggerMessage.Define<DateTime, string>(LogLevel.Debug, new EventId(11, nameof(SkipRaisingReceiveEvent)), "{time}: Connection Id {connectionId}: Message received but connection is not connected. Skipping raising Received event.");
+        private static readonly Action<ILogger, Exception> _skipRaisingReceiveEvent =
+            LoggerMessage.Define(LogLevel.Debug, new EventId(11, nameof(SkipRaisingReceiveEvent)), "Message received but connection is not connected. Skipping raising Received event.");
 
-        private static readonly Action<ILogger, DateTime, string, Exception> _scheduleReceiveEvent =
-            LoggerMessage.Define<DateTime, string>(LogLevel.Debug, new EventId(12, nameof(ScheduleReceiveEvent)), "{time}: Connection Id {connectionId}: Scheduling raising Received event.");
+        private static readonly Action<ILogger, Exception> _scheduleReceiveEvent =
+            LoggerMessage.Define(LogLevel.Debug, new EventId(12, nameof(ScheduleReceiveEvent)), "Scheduling raising Received event.");
 
-        private static readonly Action<ILogger, DateTime, string, Exception> _raiseReceiveEvent =
-            LoggerMessage.Define<DateTime, string>(LogLevel.Debug, new EventId(13, nameof(RaiseReceiveEvent)), "{time}: Connection Id {connectionId}: Raising Received event.");
+        private static readonly Action<ILogger, Exception> _raiseReceiveEvent =
+            LoggerMessage.Define(LogLevel.Debug, new EventId(13, nameof(RaiseReceiveEvent)), "Raising Received event.");
 
-        private static readonly Action<ILogger, DateTime, string, Exception> _failedReadingMessage =
-            LoggerMessage.Define<DateTime, string>(LogLevel.Debug, new EventId(14, nameof(FailedReadingMessage)), "{time}: Connection Id {connectionId}: Could not read message.");
+        private static readonly Action<ILogger, Exception> _failedReadingMessage =
+            LoggerMessage.Define(LogLevel.Debug, new EventId(14, nameof(FailedReadingMessage)), "Could not read message.");
 
-        private static readonly Action<ILogger, DateTime, string, Exception> _errorReceiving =
-            LoggerMessage.Define<DateTime, string>(LogLevel.Error, new EventId(15, nameof(ErrorReceiving)), "{time}: Connection Id {connectionId}: Error receiving message.");
+        private static readonly Action<ILogger, Exception> _errorReceiving =
+            LoggerMessage.Define(LogLevel.Error, new EventId(15, nameof(ErrorReceiving)), "Error receiving message.");
 
-        private static readonly Action<ILogger, DateTime, string, Exception> _endReceive =
-            LoggerMessage.Define<DateTime, string>(LogLevel.Trace, new EventId(16, nameof(EndReceive)), "{time}: Connection Id {connectionId}: Ending receive loop.");
+        private static readonly Action<ILogger, Exception> _endReceive =
+            LoggerMessage.Define(LogLevel.Trace, new EventId(16, nameof(EndReceive)), "Ending receive loop.");
 
-        private static readonly Action<ILogger, DateTime, string, Exception> _sendingMessage =
-            LoggerMessage.Define<DateTime, string>(LogLevel.Debug, new EventId(17, nameof(SendingMessage)), "{time}: Connection Id {connectionId}: Sending message.");
+        private static readonly Action<ILogger, Exception> _sendingMessage =
+            LoggerMessage.Define(LogLevel.Debug, new EventId(17, nameof(SendingMessage)), "Sending message.");
 
-        private static readonly Action<ILogger, DateTime, string, Exception> _stoppingClient =
-            LoggerMessage.Define<DateTime, string>(LogLevel.Information, new EventId(18, nameof(StoppingClient)), "{time}: Connection Id {connectionId}: Stopping client.");
+        private static readonly Action<ILogger, Exception> _stoppingClient =
+            LoggerMessage.Define(LogLevel.Information, new EventId(18, nameof(StoppingClient)), "Stopping client.");
 
-        private static readonly Action<ILogger, DateTime, string, string, Exception> _exceptionThrownFromCallback =
-            LoggerMessage.Define<DateTime, string, string>(LogLevel.Error, new EventId(19, nameof(ExceptionThrownFromCallback)), "{time}: Connection Id {connectionId}: An exception was thrown from the '{callback}' callback.");
+        private static readonly Action<ILogger, string, Exception> _exceptionThrownFromCallback =
+            LoggerMessage.Define<string>(LogLevel.Error, new EventId(19, nameof(ExceptionThrownFromCallback)), "An exception was thrown from the '{callback}' callback.");
 
-        private static readonly Action<ILogger, DateTime, string, Exception> _disposingClient =
-            LoggerMessage.Define<DateTime, string>(LogLevel.Information, new EventId(20, nameof(DisposingClient)), "{time}: Connection Id {connectionId}: Disposing client.");
+        private static readonly Action<ILogger, Exception> _disposingClient =
+            LoggerMessage.Define(LogLevel.Information, new EventId(20, nameof(DisposingClient)), "Disposing client.");
 
-        private static readonly Action<ILogger, DateTime, string, Exception> _abortingClient =
-            LoggerMessage.Define<DateTime, string>(LogLevel.Error, new EventId(21, nameof(AbortingClient)), "{time}: Connection Id {connectionId}: Aborting client.");
+        private static readonly Action<ILogger, Exception> _abortingClient =
+            LoggerMessage.Define(LogLevel.Error, new EventId(21, nameof(AbortingClient)), "Aborting client.");
 
         private static readonly Action<ILogger, Exception> _errorDuringClosedEvent =
             LoggerMessage.Define(LogLevel.Error, new EventId(22, nameof(ErrorDuringClosedEvent)), "An exception was thrown in the handler for the Closed event.");
 
-        private static readonly Action<ILogger, DateTime, string, Exception> _skippingStop =
-            LoggerMessage.Define<DateTime, string>(LogLevel.Debug, new EventId(23, nameof(SkippingStop)), "{time}: Connection Id {connectionId}: Skipping stop, connection is already stopped.");
+        private static readonly Action<ILogger, Exception> _skippingStop =
+            LoggerMessage.Define(LogLevel.Debug, new EventId(23, nameof(SkippingStop)), "Skipping stop, connection is already stopped.");
 
-        private static readonly Action<ILogger, DateTime, string, Exception> _skippingDispose =
-            LoggerMessage.Define<DateTime, string>(LogLevel.Debug, new EventId(24, nameof(SkippingDispose)), "{time}: Connection Id {connectionId}: Skipping dispose, connection is already disposed.");
+        private static readonly Action<ILogger, Exception> _skippingDispose =
+            LoggerMessage.Define(LogLevel.Debug, new EventId(24, nameof(SkippingDispose)), "Skipping dispose, connection is already disposed.");
 
-        private static readonly Action<ILogger, DateTime, string, string, string, Exception> _connectionStateChanged =
-            LoggerMessage.Define<DateTime, string, string, string>(LogLevel.Debug, new EventId(25, nameof(ConnectionStateChanged)), "{time}: Connection Id {connectionId}: Connection state changed from {previousState} to {newState}.");
+        private static readonly Action<ILogger, string, string, Exception> _connectionStateChanged =
+            LoggerMessage.Define<string, string>(LogLevel.Debug, new EventId(25, nameof(ConnectionStateChanged)), "Connection state changed from {previousState} to {newState}.");
 
         public static void StartTransport(this ILogger logger, TransferMode transferMode)
         {
@@ -311,188 +311,122 @@ namespace Microsoft.AspNetCore.Sockets.Client.Internal
             _httpConnectionClosed(logger, null);
         }
 
-        public static void StartingTransport(this ILogger logger, string connectionId, string transport, Uri url)
+        public static void StartingTransport(this ILogger logger, string transport, Uri url)
         {
-            if (logger.IsEnabled(LogLevel.Debug))
-            {
-                _startingTransport(logger, DateTime.Now, connectionId, transport, url, null);
-            }
+            _startingTransport(logger, transport, url, null);
         }
 
-        public static void RaiseConnected(this ILogger logger, string connectionId)
+        public static void RaiseConnected(this ILogger logger)
         {
-            if (logger.IsEnabled(LogLevel.Debug))
-            {
-                _raiseConnected(logger, DateTime.Now, connectionId, null);
-            }
+            _raiseConnected(logger, null);
         }
 
-        public static void ProcessRemainingMessages(this ILogger logger, string connectionId)
+        public static void ProcessRemainingMessages(this ILogger logger)
         {
-            if (logger.IsEnabled(LogLevel.Debug))
-            {
-                _processRemainingMessages(logger, DateTime.Now, connectionId, null);
-            }
+            _processRemainingMessages(logger, null);
         }
 
-        public static void DrainEvents(this ILogger logger, string connectionId)
+        public static void DrainEvents(this ILogger logger)
         {
-            if (logger.IsEnabled(LogLevel.Debug))
-            {
-                _drainEvents(logger, DateTime.Now, connectionId, null);
-            }
+            _drainEvents(logger, null);
         }
 
-        public static void CompleteClosed(this ILogger logger, string connectionId)
+        public static void CompleteClosed(this ILogger logger)
         {
-            if (logger.IsEnabled(LogLevel.Debug))
-            {
-                _completeClosed(logger, DateTime.Now, connectionId, null);
-            }
+            _completeClosed(logger, null);
         }
 
         public static void EstablishingConnection(this ILogger logger, Uri url)
         {
-            if (logger.IsEnabled(LogLevel.Debug))
-            {
-                _establishingConnection(logger, DateTime.Now, url, null);
-            }
+            _establishingConnection(logger, url, null);
         }
 
         public static void ErrorWithNegotiation(this ILogger logger, Uri url, Exception exception)
         {
-            if (logger.IsEnabled(LogLevel.Error))
-            {
-                _errorWithNegotiation(logger, DateTime.Now, url, exception);
-            }
+            _errorWithNegotiation(logger, url, exception);
         }
 
-        public static void ErrorStartingTransport(this ILogger logger, string connectionId, string transport, Exception exception)
+        public static void ErrorStartingTransport(this ILogger logger, string transport, Exception exception)
         {
-            if (logger.IsEnabled(LogLevel.Error))
-            {
-                _errorStartingTransport(logger, DateTime.Now, connectionId, transport, exception);
-            }
+            _errorStartingTransport(logger, transport, exception);
         }
 
-        public static void HttpReceiveStarted(this ILogger logger, string connectionId)
+        public static void HttpReceiveStarted(this ILogger logger)
         {
-            if (logger.IsEnabled(LogLevel.Trace))
-            {
-                _httpReceiveStarted(logger, DateTime.Now, connectionId, null);
-            }
+            _httpReceiveStarted(logger, null);
         }
 
-        public static void SkipRaisingReceiveEvent(this ILogger logger, string connectionId)
+        public static void SkipRaisingReceiveEvent(this ILogger logger)
         {
-            if (logger.IsEnabled(LogLevel.Debug))
-            {
-                _skipRaisingReceiveEvent(logger, DateTime.Now, connectionId, null);
-            }
+            _skipRaisingReceiveEvent(logger, null);
         }
 
-        public static void ScheduleReceiveEvent(this ILogger logger, string connectionId)
+        public static void ScheduleReceiveEvent(this ILogger logger)
         {
-            if (logger.IsEnabled(LogLevel.Debug))
-            {
-                _scheduleReceiveEvent(logger, DateTime.Now, connectionId, null);
-            }
+            _scheduleReceiveEvent(logger, null);
         }
 
-        public static void RaiseReceiveEvent(this ILogger logger, string connectionId)
+        public static void RaiseReceiveEvent(this ILogger logger)
         {
-            if (logger.IsEnabled(LogLevel.Debug))
-            {
-                _raiseReceiveEvent(logger, DateTime.Now, connectionId, null);
-            }
+            _raiseReceiveEvent(logger, null);
         }
 
-        public static void FailedReadingMessage(this ILogger logger, string connectionId)
+        public static void FailedReadingMessage(this ILogger logger)
         {
-            if (logger.IsEnabled(LogLevel.Debug))
-            {
-                _failedReadingMessage(logger, DateTime.Now, connectionId, null);
-            }
+            _failedReadingMessage(logger, null);
         }
 
-        public static void ErrorReceiving(this ILogger logger, string connectionId, Exception exception)
+        public static void ErrorReceiving(this ILogger logger, Exception exception)
         {
-            if (logger.IsEnabled(LogLevel.Error))
-            {
-                _errorReceiving(logger, DateTime.Now, connectionId, exception);
-            }
+            _errorReceiving(logger, exception);
         }
 
-        public static void EndReceive(this ILogger logger, string connectionId)
+        public static void EndReceive(this ILogger logger)
         {
-            if (logger.IsEnabled(LogLevel.Trace))
-            {
-                _endReceive(logger, DateTime.Now, connectionId, null);
-            }
+            _endReceive(logger, null);
         }
 
-        public static void SendingMessage(this ILogger logger, string connectionId)
+        public static void SendingMessage(this ILogger logger)
+        {
+            _sendingMessage(logger, null);
+        }
+
+        public static void AbortingClient(this ILogger logger, Exception ex)
+        {
+            _abortingClient(logger, ex);
+        }
+
+        public static void StoppingClient(this ILogger logger)
+        {
+            _stoppingClient(logger, null);
+        }
+
+        public static void DisposingClient(this ILogger logger)
+        {
+            _disposingClient(logger, null);
+        }
+
+        public static void SkippingDispose(this ILogger logger)
+        {
+            _skippingDispose(logger, null);
+        }
+
+        public static void ConnectionStateChanged(this ILogger logger, HttpConnection.ConnectionState previousState, HttpConnection.ConnectionState newState)
         {
             if (logger.IsEnabled(LogLevel.Debug))
             {
-                _sendingMessage(logger, DateTime.Now, connectionId, null);
+                _connectionStateChanged(logger, previousState.ToString(), newState.ToString(), null);
             }
         }
 
-        public static void AbortingClient(this ILogger logger, string connectionId, Exception ex)
+        public static void SkippingStop(this ILogger logger)
         {
-            if (logger.IsEnabled(LogLevel.Error))
-            {
-                _abortingClient(logger, DateTime.Now, connectionId, ex);
-            }
+            _skippingStop(logger, null);
         }
 
-        public static void StoppingClient(this ILogger logger, string connectionId)
+        public static void ExceptionThrownFromCallback(this ILogger logger, string callbackName, Exception exception)
         {
-            if (logger.IsEnabled(LogLevel.Information))
-            {
-                _stoppingClient(logger, DateTime.Now, connectionId, null);
-            }
-        }
-
-        public static void DisposingClient(this ILogger logger, string connectionId)
-        {
-            if (logger.IsEnabled(LogLevel.Information))
-            {
-                _disposingClient(logger, DateTime.Now, connectionId, null);
-            }
-        }
-
-        public static void SkippingDispose(this ILogger logger, string connectionId)
-        {
-            if (logger.IsEnabled(LogLevel.Debug))
-            {
-                _skippingDispose(logger, DateTime.Now, connectionId, null);
-            }
-        }
-
-        public static void ConnectionStateChanged(this ILogger logger, string connectionId, HttpConnection.ConnectionState previousState, HttpConnection.ConnectionState newState)
-        {
-            if (logger.IsEnabled(LogLevel.Debug))
-            {
-                _connectionStateChanged(logger, DateTime.Now, connectionId, previousState.ToString(), newState.ToString(), null);
-            }
-        }
-
-        public static void SkippingStop(this ILogger logger, string connectionId)
-        {
-            if (logger.IsEnabled(LogLevel.Debug))
-            {
-                _skippingStop(logger, DateTime.Now, connectionId, null);
-            }
-        }
-
-        public static void ExceptionThrownFromCallback(this ILogger logger, string connectionId, string callbackName, Exception exception)
-        {
-            if (logger.IsEnabled(LogLevel.Error))
-            {
-                _exceptionThrownFromCallback(logger, DateTime.Now, connectionId, callbackName, exception);
-            }
+            _exceptionThrownFromCallback(logger, callbackName, exception);
         }
 
         public static void ErrorDuringClosedEvent(this ILogger logger, Exception exception)
